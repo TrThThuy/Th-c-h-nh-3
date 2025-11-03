@@ -1,59 +1,33 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function ProfileCard() {
+export default function AverageCalculator() {
+  const [toan, setToan] = useState('');
+  const [ly, setLy] = useState('');
+  const [hoa, setHoa] = useState('');
+  const [result, setResult] = useState('');
+
+  const tinhDiem = () => {
+    const avg = (parseFloat(toan) + parseFloat(ly) + parseFloat(hoa)) / 3;
+    setResult(avg ? avg.toFixed(2) : 'Nhập đủ 3 điểm!');
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
-        <Image
-          source={require('./assets/chongiu.png')}
-          style={styles.avatar}
-        />
-        <Text style={styles.name}>Trần Thu</Text>
-        <Text style={styles.job}>Sinh viên CNTT</Text>
-        <Text style={styles.contact}>📧 tranthuthuy17052009@gmail.com</Text>
-      </View>
+      <Text style={styles.title}>Tính điểm trung bình</Text>
+      <TextInput placeholder="Toán" keyboardType="numeric" style={styles.input} onChangeText={setToan} />
+      <TextInput placeholder="Lý" keyboardType="numeric" style={styles.input} onChangeText={setLy} />
+      <TextInput placeholder="Hóa" keyboardType="numeric" style={styles.input} onChangeText={setHoa} />
+      <Button title="Tính điểm" onPress={tinhDiem} />
+      <Text style={styles.result}>Kết quả: {result}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2',
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 8,
-    elevation: 5,
-    alignItems: 'center',
-    width: 250,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 12,
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  job: {
-    color: '#666',
-    marginVertical: 4,
-  },
-  contact: {
-    color: '#007AFF',
-    marginTop: 6,
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 },
+  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10 },
+  input: { borderWidth: 1, borderColor: '#ccc', width: '80%', padding: 8, marginBottom: 10, borderRadius: 6 },
+  result: { marginTop: 10, fontSize: 18, fontWeight: 'bold' },
 });
-
 
